@@ -49,7 +49,7 @@ def bitbucket_categorize(code: str) -> Tuple[str, str]:
             ("LOW", "CODE_SMELL")
     """
     code = code.upper()
-    if code.startswith(("E1", "E2", "E3", "E4", "E5", "W3", "W5")):
+    if code.startswith(("E1", "E2", "E3", "E4", "E5", "W2", "W3", "W5")):
         return ("LOW", "CODE_SMELL")
     elif code.startswith(("F4", "E7", "N")):
         return ("MEDIUM", "CODE_SMELL")

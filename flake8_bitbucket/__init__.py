@@ -200,19 +200,19 @@ class Flake8Bitbucket(base.BaseFormatter):
             },
         )
 
-        annotations = set()
+        annotations = []
         for violation in self.violations:
             path = os.path.normpath(os.path.join(relative_path, violation.filename))
             severity, category = bitbucket_categorize(violation.code)
-            annotations.add(
-                {
-                    "line": violation.line_number,
-                    "message": f"{violation.code} {violation.text}",
-                    "path": path,
-                    "severity": severity,
-                    "type": category,
-                }
-            )
+            annotation = {
+                "line": violation.line_number,
+                "message": f"{violation.code} {violation.text}",
+                "path": path,
+                "severity": severity,
+                "type": category,
+            }
+            if annotation not in annotations:
+                annotations.append(annotation)
 
         if len(annotations):
             bitbucket.create_code_insights_report_annotations(

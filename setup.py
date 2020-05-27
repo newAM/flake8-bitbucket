@@ -11,7 +11,7 @@ setup(
     name="flake8-bitbucket",
     description="A flake8 plugin for bitbucket insights.",
     long_description=long_description,
-    version="0.1.1",
+    version="0.1.2",
     author="Alex M.",
     author_email="7845120+newAM@users.noreply.github.com",
     url="https://github.com/newAM/flake8-bitbucket",

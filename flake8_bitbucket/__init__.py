@@ -205,13 +205,14 @@ class Flake8Bitbucket(base.BaseFormatter):
                 }
             )
 
-        bitbucket.create_code_insights_report_annotations(
-            project_key=args.bitbucket_project_key,
-            repository_slug=args.bitbucket_repository_slug,
-            commit_id=commit,
-            report_key=name,
-            annotations=annotations,
-        )
+        if len(annotations):
+            bitbucket.create_code_insights_report_annotations(
+                project_key=args.bitbucket_project_key,
+                repository_slug=args.bitbucket_repository_slug,
+                commit_id=commit,
+                report_key=name,
+                annotations=annotations,
+            )
 
     def stop(self):
         try:

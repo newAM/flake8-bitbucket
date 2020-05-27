@@ -33,7 +33,7 @@ These options can be provided via the CLI or a ``.flake8`` configuration file.
 
     flake8-bitbucket:
     --bitbucket-api-token BITBUCKET_API_TOKEN
-                            Bitbucket API token for authentication. Setting this option will automatically enable flake8-bitbucket as the formatter.
+                            Bitbucket API token for authentication, or a path to a file containing the token. Setting this option will automatically enable flake8-bitbucket as the formatter.
     --bitbucket-url BITBUCKET_URL
                             Bitbucket server URL, such as http://localhost:8090.
     --bitbucket-project-key BITBUCKET_PROJECT_KEY
@@ -43,6 +43,7 @@ These options can be provided via the CLI or a ``.flake8`` configuration file.
     --bitbucket-suppress  Exit with code 0 on bitbucket HTTP failures.
     --bitbucket-verify BITBUCKET_VERIFY
                             Path to SSL certificate (.pem) for HTTPS bitbucket connections.
+    --bitbucket-delete    Delete the report and exit.
 
 For example::
 

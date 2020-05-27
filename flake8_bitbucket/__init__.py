@@ -49,14 +49,14 @@ def bitbucket_categorize(code: str) -> Tuple[str, str]:
             ("LOW", "CODE_SMELL")
     """
     code = code.upper()
-    if code.startswith(("E1", "E2", "E3", "E4", "E5", "W2", "W3", "W5")):
-        return ("LOW", "CODE_SMELL")
+    if code.startswith(("F8", "F9", "B", "W6")):
+        return ("HIGH", "BUG")
+    elif code.startswith(("W1", "W6", "E722")):
+        return ("HIGH", "CODE_SMELL")
     elif code.startswith(("F4", "E7", "N")):
         return ("MEDIUM", "CODE_SMELL")
-    elif code.startswith(("W1", "W6")):
-        return ("HIGH", "CODE_SMELL")
-    elif code.startswith(("F", "B", "W")):
-        return ("HIGH", "BUG")
+    elif code.startswith(("E1", "E2", "E3", "E4", "E5", "W2", "W3", "W5")):
+        return ("LOW", "CODE_SMELL")
 
     return ("LOW", "CODE_SMELL")
 
@@ -114,6 +114,12 @@ class Flake8Bitbucket(base.BaseFormatter):
             default=True,
             help="Path to SSL certificate (.pem) for HTTPS bitbucket connections.",
         )
+        parser.add_option(
+            "--bitbucket-delete",
+            action="store_true",
+            default=False,
+            help="Delete the report and exit.",
+        )
 
     @staticmethod
     def parse_options(options):
@@ -168,6 +174,9 @@ class Flake8Bitbucket(base.BaseFormatter):
             if not e.args[0].startswith("404"):
                 raise
 
+        if args.bitbucket_delete:
+            return
+
         bitbucket.create_code_insights_report(
             project_key=args.bitbucket_project_key,
             repository_slug=args.bitbucket_repository_slug,
@@ -191,11 +200,11 @@ class Flake8Bitbucket(base.BaseFormatter):
             },
         )
 
-        annotations = []
+        annotations = set()
         for violation in self.violations:
             path = os.path.normpath(os.path.join(relative_path, violation.filename))
             severity, category = bitbucket_categorize(violation.code)
-            annotations.append(
+            annotations.add(
                 {
                     "line": violation.line_number,
                     "message": f"{violation.code} {violation.text}",
@@ -211,7 +220,7 @@ class Flake8Bitbucket(base.BaseFormatter):
                 repository_slug=args.bitbucket_repository_slug,
                 commit_id=commit,
                 report_key=name,
-                annotations=annotations,
+                annotations=list(annotations),
             )
 
     def stop(self):

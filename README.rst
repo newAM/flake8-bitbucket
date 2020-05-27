@@ -54,4 +54,4 @@ For example::
 
 .. image:: https://raw.githubusercontent.com/newAM/flake8-bitbucket/master/smelly_code.png
 
-.. bitbucket code insights: https://confluence.atlassian.com/bitbucketserver/code-insights-966660485.html
+.. _bitbucket code insights: https://confluence.atlassian.com/bitbucketserver/code-insights-966660485.html

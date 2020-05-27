@@ -73,7 +73,8 @@ class Flake8Bitbucket(base.BaseFormatter):
             parse_from_config=True,
             default=None,
             help=(
-                "Bitbucket API token for authentication. "
+                "Bitbucket API token for authentication, "
+                "or a path to a file containing the token. "
                 "Setting this option will automatically enable "
                 f"{Flake8Bitbucket.name} as the formatter."
             ),
@@ -135,6 +136,7 @@ class Flake8Bitbucket(base.BaseFormatter):
         num_violations = len(self.violations)
 
         repo = git.Repo(search_parent_directories=True)
+        commit = str(repo.head.object.hexsha)
         repo_path = os.path.abspath(repo.working_tree_dir)
 
         # relative paths if flake8 is not run in the root of the repo
@@ -144,11 +146,16 @@ class Flake8Bitbucket(base.BaseFormatter):
         relative_path = relative_path.strip("/")
 
         # unique keys for running flake8 in different directories in the same repo
-        name = self.name + relative_path.replace("/", "-")
+        name = self.name + "-" + relative_path.replace("/", "-")
 
-        commit = str(repo.head.object.hexsha)
+        if os.path.isfile(args.bitbucket_api_token):
+            with open(args.bitbucket_api_token, "r") as f:
+                token = f.read().strip()
+        else:
+            token = args.bitbucket_api_token
+
         bitbucket = Bitbucket(url=args.bitbucket_url, verify_ssl=args.bitbucket_verify)
-        bitbucket._update_header("Authorization", f"Bearer {args.bitbucket_api_token}")
+        bitbucket._update_header("Authorization", f"Bearer {token}")
         try:
             bitbucket.delete_code_insights_report(
                 project_key=args.bitbucket_project_key,

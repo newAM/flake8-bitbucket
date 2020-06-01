@@ -183,21 +183,17 @@ class Flake8Bitbucket(base.BaseFormatter):
             commit_id=commit,
             report_key=name,
             report_title="flake8",
-            report_params={
-                "details": (
-                    "flake8 is a tool to check your Python code against some "
-                    "of the style conventions in PEP 8."
-                ),
-                "result": "FAIL" if num_violations else "PASS",
-                "data": [
-                    {"title": "violations", "type": "NUMBER", "value": num_violations},
-                ],
-                "reporter": name,
-                "logoUrl": (
-                    "https://www.python.org/static/community_logos/"
-                    "python-logo-master-v3-TM.png"
-                ),
-            },
+            details=(
+                "flake8 is a tool to check your Python code against some "
+                "of the style conventions in PEP 8."
+            ),
+            result="FAIL" if num_violations else "PASS",
+            data=[{"title": "violations", "type": "NUMBER", "value": num_violations}],
+            reporter=name,
+            logoUrl=(
+                "https://www.python.org/static/community_logos/"
+                "python-logo-master-v3-TM.png"
+            ),
         )
 
         annotations = []
@@ -214,7 +210,17 @@ class Flake8Bitbucket(base.BaseFormatter):
             if annotation not in annotations:
                 annotations.append(annotation)
 
-        if len(annotations):
+        num_annotations = len(annotations)
+        annotations = list(annotations)
+        max_annotations = 1000
+        if num_annotations > max_annotations:
+            print(
+                f"WARNING: bitbucket only supports {max_annotations} "
+                f"annotations, found {num_annotations}"
+            )
+            annotations = annotations[:max_annotations]
+
+        if num_annotations:
             bitbucket.create_code_insights_report_annotations(
                 project_key=args.bitbucket_project_key,
                 repository_slug=args.bitbucket_repository_slug,

@@ -192,7 +192,7 @@ class Flake8Bitbucket(base.BaseFormatter):
             reporter=name,
             logoUrl=(
                 "https://www.python.org/static/community_logos/"
-                "python-logo-master-v3-TM.png"
+                "python-powered-h-140x182.png"
             ),
         )
 

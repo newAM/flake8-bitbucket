@@ -188,7 +188,7 @@ class Flake8Bitbucket(base.BaseFormatter):
                 "of the style conventions in PEP 8."
             ),
             result="FAIL" if num_violations else "PASS",
-            data=[{"title": "violations", "type": "NUMBER", "value": num_violations}],
+            data=[{"title": "Violations", "type": "NUMBER", "value": num_violations}],
             reporter=name,
             logoUrl=(
                 "https://www.python.org/static/community_logos/"

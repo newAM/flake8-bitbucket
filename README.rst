@@ -4,25 +4,18 @@ A flake8 plugin for `bitbucket code insights`_.
 
 DISCLAIMER
 **********
-I will **not** be maintaining this beyond my own use cases.
+Updates to this package will be **very** slow.
 
 Bitbucket requires license keys to use their product,
 and this makes system testing needlessly difficult.
 
 Installation
 ************
-Requires python3.8, might work on newer version.
+Tested with Python 3.8.
 
 .. code:: bash
 
-    pip install git+https://github.com/newAM/flake8-bitbucket.git
-
-Installing from Repository
-==========================
-.. code:: bash
-
-    python3.8 -m pip uninstall -y flake8-bitbucket
-    python3.8 setup.py install
+    python3.8 -m pip install flake8-bitbucket
 
 Usage
 *****

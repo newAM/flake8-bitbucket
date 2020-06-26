@@ -1,9 +1,18 @@
 language: python
 python:
-  - "3.8"
+  - '3.8'
 install:
   - pip install flake8>=3.8.2 flake8-bugbear>=20.1.4 pep8-naming>=0.10.0
   - pip install black>=19.10b0
 script:
   - black --check .
   - flake8
+deploy:
+  provider: pypi
+  username: __token__
+  password:
+    secure: q251vGYzdgawcUZxW13se+K0I2QCg/nVSfFtRlnsQvNPhJ+F0XCAVsxyuhlcnRKr8lLphd7MOGTHrdy5in8XubnJpXUDXbge46v+7wHKeo/CKWb8KgrIc+4FT38ZM8CM6i7mW39gOW3eDqwJmm/PYSLWhy1DrskmV/TyDgtiUKxBAiDqJtstrR6URnxTMJpyeRxcSxHBIEQHo2oONymK7C1EhorwjBrdS/7IJSN6pW5fjPIU5qLkq094ZbLkweUrqc0P5WKl3BTZr9dlNH6gPFzkUvYtXxVooqIEtZ62wPgBwayfw01m35jX0BATxfHDjMnYs9d6DkIUs6S88TwqpvPlB2w/ge3qQj3q4D0zxGmF+ojSulHhhKI8ntQvEYnWFUhljfZzEsKWdbcmVmPJGZSFfD9TAJeQhtrUXiTvxgIeiD3HdlrK5CnXkWArWhXxhTQAQPXpKMW4gZAtBwNdXRLF4+Lmmc+Ygv/BmDvczGsdGaQCGlPvK7Au+wUUU1lSHw/A9eDh5SiOLeYX3kSbRZMp0+k1NKEaJXIO4EaWMpvMNEzg0gaeZcdTGHj4/s4JxNq/4gShOS10PyrbV5mvkIKgIBGmH7aIhvQMgVxNdA4H62zAuGBQGc7Hs0fpnm9tyYfqwaudz+BvwZ5LBBiyppzCnLYUQoSxHdUxjW7PV5I=
+  on:
+    tags: true
+  skip_existing: true
+  all_branches: true

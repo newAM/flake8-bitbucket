@@ -1,5 +1,7 @@
 flake8-bitbucket
 ################
+|Python Version| |Build Status| |Black| |PyPi Version|
+
 A flake8 plugin for `bitbucket code insights`_.
 
 DISCLAIMER
@@ -46,6 +48,15 @@ For example::
         --bitbucket-project-key TEST \
         --bitbucket-repository-slug smellyrepo
 
+
 .. image:: https://raw.githubusercontent.com/newAM/flake8-bitbucket/master/smelly_code.png
 
 .. _bitbucket code insights: https://confluence.atlassian.com/bitbucketserver/code-insights-966660485.html
+
+.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
+.. |Build Status| image:: https://api.travis-ci.com/newAM/flake8-bitbucket.svg?branch=master
+   :target: https://travis-ci.com/newAM/flake8-bitbucket
+.. |PyPi Version| image:: https://img.shields.io/pypi/v/flake8-bitbucket
+    :target: https://pypi.org/project/flake8-bitbucket/
+.. |Python Version| image:: https://img.shields.io/pypi/pyversions/flake8-bitbucket
